@@ -27,6 +27,15 @@ spec:
           resources:
             limits:
               memory: 100Mi
+          resources:
+            requests:
+              ephemeral-storage: "2Gi"
+          resources:
+            requests:
+              cpu: 0.5
+          resources:
+            requests:
+              memory: 100Mi
       automountServiceAccountToken: false
       volumes:
         - name: webserver-secret

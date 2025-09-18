@@ -24,6 +24,10 @@ spec:
             - name: webserver-secret
               mountPath: "/var/secret"
               readOnly: true
+          resources:
+            limits:
+              memory: 100Mi
+      automountServiceAccountToken: false
       volumes:
         - name: webserver-secret
           secret:

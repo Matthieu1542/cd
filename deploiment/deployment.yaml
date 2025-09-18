@@ -14,6 +14,7 @@ spec:
       labels:
         app: webserver
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: webserver
           image: mywebserver:1.0
@@ -22,21 +23,15 @@ spec:
             - containerPort: 3000
           volumeMounts:
             - name: webserver-secret
-              mountPath: "/var/secret"
+              mountPath: /var/secret
               readOnly: true
           resources:
-            limits:
-              memory: 100Mi
-          resources:
             requests:
+              cpu: "500m"
+              memory: "100Mi"
               ephemeral-storage: "2Gi"
-          resources:
-            requests:
-              cpu: 0.5
-          resources:
-            requests:
-              memory: 100Mi
-      automountServiceAccountToken: false
+            limits:
+              memory: "100Mi"
       volumes:
         - name: webserver-secret
           secret:
@@ -51,6 +46,7 @@ spec:
   selector:
     app: webserver
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: 3000
   type: LoadBalancer
